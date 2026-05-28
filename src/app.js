@@ -1,7 +1,7 @@
 const express = require("express");
 const path = require("path");
-
 const { router: apiRouter } = require("./routes/api");
+const { router: authRouter } = require("./routes/auth");
 const { router: viewRouter } = require("./routes/views");
 
 const app = express();
@@ -14,6 +14,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "..", "public")));
 
 // Routes
+app.use("/api/auth", authRouter);
 app.use("/", viewRouter);
 app.use("/api", apiRouter);
 
