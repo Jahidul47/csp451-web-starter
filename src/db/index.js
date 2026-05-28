@@ -4,6 +4,8 @@ const config = {
   environment: process.env.NODE_ENV || "development",
 };
 
+const store = new Map();
+
 function connect() {
   return {
     connected: true,
@@ -12,7 +14,28 @@ function connect() {
   };
 }
 
+function insert(table, row) {
+  if (!store.has(table)) {
+    store.set(table, []);
+  }
+
+  const savedRow = {
+    id: Date.now(),
+    ...row,
+  };
+
+  store.get(table).push(savedRow);
+  return savedRow;
+}
+
+function query(table, predicate = () => true) {
+  const rows = store.get(table) || [];
+  return rows.filter(predicate);
+}
+
 module.exports = {
   connect,
+  query,
+  insert,
   config,
 };
