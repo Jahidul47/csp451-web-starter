@@ -10,7 +10,7 @@ function validateLogin(email, password) {
   }
 
   if (!password || password.length < 6) {
-    errors.push("Password must be at least 6 characters.");
+    errors.push("Password must be at least 6 characters before signing in.");
   }
 
   return {
