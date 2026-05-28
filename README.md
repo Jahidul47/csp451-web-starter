@@ -51,3 +51,6 @@ To intentionally create a merge conflict, edit the same lines in one of:
 npm test
 npm run lint
 ```
+## Database Demo
+
+This checkpoint uses a simple in-memory database module for practice. It reads configuration from environment variables such as DB_URL and DB_POOL.
