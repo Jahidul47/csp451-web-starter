@@ -54,3 +54,12 @@ npm run lint
 ## Database Demo
 
 This checkpoint uses a simple in-memory database module for practice. It reads configuration from environment variables such as DB_URL and DB_POOL.
+
+
+## API Endpoints
+
+- GET /api/health
+- GET /api/items
+- POST /api/items
+
+POST /api/items requires a name and category.
