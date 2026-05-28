@@ -1,24 +1,60 @@
-/**
- * Starter login behavior (minimal).
- * Feature branch: feature/user-authentication should add:
- * - better validation (inline errors)
- * - UI feedback states (loading, success, failure)
- * - optional: call an API endpoint (e.g., POST /api/auth/login)
- */
 const form = document.getElementById("loginForm");
 const message = document.getElementById("message");
+const submitButton = form.querySelector("button");
 
-form.addEventListener("submit", (e) => {
-  e.preventDefault();
+function showMessage(text, isError = false) {
+  message.textContent = text;
+  message.style.color = isError ? "red" : "green";
+}
+
+function isValidEmail(email) {
+  return email.includes("@") && email.includes(".");
+}
+
+form.addEventListener("submit", async (event) => {
+  event.preventDefault();
 
   const email = document.getElementById("email").value.trim();
   const password = document.getElementById("password").value;
 
-  // Minimal checks (students can improve)
-  if (!email || password.length < 6) {
-    message.textContent = "Please enter a valid email and a password (min 6 characters).";
+  if (!isValidEmail(email)) {
+    showMessage("Please enter a valid email address.", true);
     return;
   }
 
-  message.textContent = "Login submitted (stub). Implement authentication in your feature branch.";
+  if (password.length < 6) {
+    showMessage("Password must be at least 6 characters.", true);
+    return;
+  }
+
+  try {
+    submitButton.disabled = true;
+    submitButton.textContent = "Signing in...";
+    showMessage("Checking login details...");
+
+    const response = await fetch("/api/auth/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, password }),
+    });
+
+    const result = await response.json();
+
+    if (!response.ok) {
+      const errorMessage = result.errors
+        ? result.errors.join(" ")
+        : "Login failed.";
+      showMessage(errorMessage, true);
+      return;
+    }
+
+    showMessage("Login successful. Welcome " + result.user.email + ".");
+  } catch (error) {
+    showMessage("Something went wrong. Please try again.", true);
+  } finally {
+    submitButton.disabled = false;
+    submitButton.textContent = "Sign in";
+  }
 });
