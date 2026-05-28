@@ -23,7 +23,7 @@ form.addEventListener("submit", async (event) => {
   }
 
   if (password.length < 6) {
-    showMessage("Password must be at least 6 characters.", true);
+    showMessage("Password must be at least 6 characters before signing in.", true);
     return;
   }
 
