@@ -14,7 +14,9 @@ This repository is a **starter template** for practicing:
 > "chore: remove sample conflict markers"`. See Walkthrough Step 2 for full
 > guidance.
 
-## Quick Start (Auth Branch Notes)
+
+## Quick Start (Auth + API Branch Notes)
+
 
 ```bash
 # 1. Remove the sample conflict markers in src/app.js first (see note above)
@@ -51,3 +53,15 @@ To intentionally create a merge conflict, edit the same lines in one of:
 npm test
 npm run lint
 ```
+## Database Demo
+
+This checkpoint uses a simple in-memory database module for practice. It reads configuration from environment variables such as DB_URL and DB_POOL.
+
+
+## API Endpoints
+
+- GET /api/health
+- GET /api/items
+- POST /api/items
+
+POST /api/items requires a name and category.
