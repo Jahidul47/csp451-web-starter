@@ -57,7 +57,6 @@ npm run lint
 
 This checkpoint uses a simple in-memory database module for practice. It reads configuration from environment variables such as DB_URL and DB_POOL.
 
-
 ## API Endpoints
 
 - GET /api/health
