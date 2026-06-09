@@ -12,9 +12,35 @@
  * - MongoDB/Postgres (optional) — keep setup simple
  */
 
+const config = {
+  url: process.env.DB_URL || "memory://local",
+  pool: Number(process.env.DB_POOL || 4),
+};
+
+const store = new Map();
+
 function connect() {
-  // Placeholder: simulate a successful connection
-  return { connected: true, driver: "stub" };
+  return { connected: true, driver: "memory", config };
 }
 
-module.exports = { connect };
+function query(table, predicate) {
+  const rows = store.get(table) || [];
+  if (typeof predicate !== "function") {
+    return rows.slice();
+  }
+  return rows.filter(predicate);
+}
+
+function insert(table, row) {
+  if (!store.has(table)) {
+    store.set(table, []);
+  }
+  store.get(table).push(row);
+  return row;
+}
+
+function reset() {
+  store.clear();
+}
+
+module.exports = { connect, query, insert, reset, config };
