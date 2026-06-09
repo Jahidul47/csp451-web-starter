@@ -51,3 +51,9 @@ To intentionally create a merge conflict, edit the same lines in one of:
 npm test
 npm run lint
 ```
+## Environment Variables
+
+The database module reads configuration from the environment:
+
+- `DB_URL` — connection string (defaults to `memory://local`)
+- `DB_POOL` — pool size as an integer (defaults to `4`)
