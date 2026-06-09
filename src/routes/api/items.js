@@ -24,7 +24,7 @@ router.post("/", (req, res) => {
   if (errors.length > 0) {
     return res.status(400).json({ errors });
   }
-  const item = { id: items.length + 1, name: req.body.name, price: req.body.price || 0 };
+  const item = { id: items.length + 1, name: req.body.name.trim(), price: req.body.price || 0 };
   items.push(item);
   return res.status(201).json({ item });
 });
